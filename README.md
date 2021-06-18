@@ -96,24 +96,29 @@ Different techniques:
 ### Static String Internationalization
 
 - Create an interface depending on your needs:
- - Extending com.google.gwt.i18n.client.Constants
- - Extending com.google.gwt.i18n.client.Messages
+  - Extending com.google.gwt.i18n.client.Constants
+  - Extending com.google.gwt.i18n.client.Messages
 - Create unimplemented methods for each String we want to internationalize (with a @DefaultStringValue annotation for a default)
 - Create properties files with properties matching the function names
 - Add instance fields to the class, e.g.:
-```
-private final MyFirstGwtAppConstants constants = GWT.create(MyFirstGwtAppConstants.class);
-```
+    ```
+    private final MyFirstGwtAppConstants constants = GWT.create(MyFirstGwtAppConstants.class);
+    ```
 - Use the constants functions everywhere instead of hardcoded strings
 - Add the locales to the .gwt.xml, e.g.:
-```
-<extend-property name="locale" values="nl"/>
-```
-- Run superDevMode and navigate to the page containing the locale:
-```
-http://127.0.0.1:8888/MyFirstGwtApp.html?&locale=nl
-```
-
+    ```
+    <extend-property name="locale" values="nl"/>
+    ```
+- Set the locale
+  - Add an HTML <meta> tag to the <head> of the application host page, containing the property name and value:
+    ```
+    <meta name="gwt:property" content="locale=nl">
+    ```
+  - Append the client property value to the query string of the URL:
+    ```
+    http://127.0.0.1:8888/MyFirstGwtApp.html?&locale=nl
+    ```
+If you specify a client property (such as locale) in both a <meta> tag and the URL, the URL value takes precedence.
 
 
 
