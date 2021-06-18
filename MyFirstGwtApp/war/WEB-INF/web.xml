@@ -5,6 +5,16 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>stockPriceServiceImpl</servlet-name>
+        <servlet-class>be.steven.d.dog.server.StockPriceServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>stockPriceServiceImpl</servlet-name>
+        <url-pattern>/myfirstgwtapp/stockPrices</url-pattern>
+    </servlet-mapping>
+
     <!-- Default page to serve -->
     <welcome-file-list>
         <welcome-file>MyFirstGwtApp.html</welcome-file>

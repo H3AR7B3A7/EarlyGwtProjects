@@ -1,14 +1,15 @@
 package be.steven.d.dog.client;
 
+import be.steven.d.dog.internationalization.MyFirstGwtAppConstants;
+import be.steven.d.dog.internationalization.MyFirstGwtAppMessages;
 import be.steven.d.dog.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class MyFirstGwtApp implements EntryPoint {
 
     private final MyFirstGwtAppConstants constants = GWT.create(MyFirstGwtAppConstants.class);
     private final MyFirstGwtAppMessages messages = GWT.create(MyFirstGwtAppMessages.class);
+
+    private StockPriceServiceAsync stockPriceService = GWT.create(StockPriceService.class);
 
     private final VerticalPanel mainPanel = new VerticalPanel();
     private final FlexTable stocksFlexTable = new FlexTable();
@@ -100,19 +103,24 @@ public class MyFirstGwtApp implements EntryPoint {
      * Generate random stock prices.
      */
     private void refreshWatchList() {
-        final double MAX_PRICE = 100.0; // $100.00
-        final double MAX_PRICE_CHANGE = 0.02; // +/- 2%
-
-        StockPrice[] prices = new StockPrice[stocks.size()];
-        for (int i = 0; i < stocks.size(); i++) {
-            double price = Random.nextDouble() * MAX_PRICE;
-            double change = price * MAX_PRICE_CHANGE
-                    * (Random.nextDouble() * 2.0 - 1.0);
-
-            prices[i] = new StockPrice(stocks.get(i), price, change);
+        // Initialize the service proxy.
+        if (stockPriceService == null) {
+            stockPriceService = GWT.create(StockPriceService.class);
         }
 
-        updateTable(prices);
+        // Set up the callback object.
+        AsyncCallback<StockPrice[]> callback = new AsyncCallback<StockPrice[]>() {
+            public void onFailure(Throwable e) {
+                e.printStackTrace();
+            }
+
+            public void onSuccess(StockPrice[] result) {
+                updateTable(result);
+            }
+        };
+
+        // Make the call to the stock price service.
+        stockPriceService.getPrices(stocks.toArray(new String[0]), callback);
     }
 
     /**
@@ -121,13 +129,13 @@ public class MyFirstGwtApp implements EntryPoint {
      * @param prices Stock data for all rows.
      */
     private void updateTable(StockPrice[] prices) {
-        for (int i = 0; i < prices.length; i++) {
-            updateTable(prices[i]);
+        for (StockPrice price : prices) {
+            updateTable(price);
         }
 
         // Display timestamp showing last refresh.
-        DateTimeFormat dateFormat = DateTimeFormat.getFormat(
-                DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM);
+//        DateTimeFormat dateFormat = DateTimeFormat.getFormat(
+//                DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM);
         lastUpdatedLabel.setText(messages.lastUpdate(new Date()));
     }
 
