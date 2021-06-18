@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MyFirstGwtApp" type="JavascriptDebugType" uri="http://127.0.0.1:8888/MyFirstGwtApp.html">
+    <mapping url="http://127.0.0.1:8888/MyFirstGwtApp.html" local-file="$PROJECT_DIR$/src/be/steven/d/dog/client" />
+    <method v="2" />
+  </configuration>
+</component>
