@@ -15,6 +15,8 @@
 
     <!-- Specify the app entry point class.                         -->
     <entry-point class='be.steven.d.dog.client.MyFirstGwtApp'/>
+    <extend-property name="locale" values="de"/>
+    <extend-property name="locale" values="nl"/>
 
     <!-- Specify the paths for translatable code                    -->
     <source path='client'/>

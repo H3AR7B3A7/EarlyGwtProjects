@@ -2,6 +2,7 @@ package be.steven.d.dog.client;
 
 import be.steven.d.dog.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
@@ -20,20 +21,27 @@ import java.util.List;
 public class MyFirstGwtApp implements EntryPoint {
     private static final int REFRESH_INTERVAL = 5000;
 
+    private final MyFirstGwtAppConstants constants = GWT.create(MyFirstGwtAppConstants.class);
+    private final MyFirstGwtAppMessages messages = GWT.create(MyFirstGwtAppMessages.class);
+
     private final VerticalPanel mainPanel = new VerticalPanel();
     private final FlexTable stocksFlexTable = new FlexTable();
     private final HorizontalPanel addPanel = new HorizontalPanel();
     private final TextBox newSymbolTextBox = new TextBox();
-    private final Button addStockButton = new Button("Add");
+    private final Button addStockButton = new Button(constants.add());
     private final Label lastUpdatedLabel = new Label();
     private final List<String> stocks = new ArrayList<String>();
 
     public void onModuleLoad() {
+        // Set the window title, the header text, and the Add button text.
+        Window.setTitle(constants.stonkWatcher());
+        RootPanel.get("appTitle").add(new Label(constants.stonkWatcher()));
+
         // Create table for stock data.
-        stocksFlexTable.setText(0, 0, "Symbol");
-        stocksFlexTable.setText(0, 1, "Price");
-        stocksFlexTable.setText(0, 2, "Change");
-        stocksFlexTable.setText(0, 3, "Remove");
+        stocksFlexTable.setText(0, 0, constants.symbol());
+        stocksFlexTable.setText(0, 1, constants.price());
+        stocksFlexTable.setText(0, 2, constants.change());
+        stocksFlexTable.setText(0, 3, constants.remove());
 
         // Add styles to elements in the stock list table.
         stocksFlexTable.setCellPadding(6);
@@ -120,8 +128,7 @@ public class MyFirstGwtApp implements EntryPoint {
         // Display timestamp showing last refresh.
         DateTimeFormat dateFormat = DateTimeFormat.getFormat(
                 DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM);
-        lastUpdatedLabel.setText("Last update : "
-                + dateFormat.format(new Date()));
+        lastUpdatedLabel.setText(messages.lastUpdate(new Date()));
     }
 
     /**
@@ -166,7 +173,7 @@ public class MyFirstGwtApp implements EntryPoint {
 
         // Stock code must be between 1 and 10 chars that are numbers, letters, or dots.
         if (FieldVerifier.isInvalidTickerSymbol(symbol)) {
-            Window.alert("'" + symbol + "' is not a valid symbol.");
+            Window.alert(messages.invalidSymbol(symbol));
             newSymbolTextBox.selectAll();
             return;
         }
