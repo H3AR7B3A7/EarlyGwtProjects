@@ -123,6 +123,13 @@ If you specify a client property (such as locale) in both a <meta> tag and the U
 [More documentation](http://www.gwtproject.org/doc/latest/DevGuideI18n.html#DevGuideDynamicStringInternationalization)
 
 
+## GWT RPC
+
+A Google Web Toolkit Remote Procedure Call makes it easy for the client and server components of your web application
+to exchange Java objects over HTTP. We often refer to the server-side code that gets invoked as a service.
+Google based the implementation of a GWT RPC service on the well-known Java servlet architecture.
+Within the client code, you’ll use an automatically-generated proxy class to make calls to the service.
+GWT will handle serialization of the Java objects passing back and forth—the arguments in the method calls and the return value.
 
 
 
