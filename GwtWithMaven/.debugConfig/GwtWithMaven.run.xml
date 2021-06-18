@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GwtWithMaven" type="JavascriptDebugType" uri="http://127.0.0.1:8888/GwtWithMaven.html">
+    <mapping url="http://127.0.0.1:8888/GwtWithMaven.html" local-file="$PROJECT_DIR$/src/main/java/be/steven/d/dog/client" />
+    <method v="2" />
+  </configuration>
+</component>
