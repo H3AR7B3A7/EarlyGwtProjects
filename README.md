@@ -120,6 +120,9 @@ Different techniques:
     ```
 If you specify a client property (such as locale) in both a <meta> tag and the URL, the URL value takes precedence.
 
+[More documentation](http://www.gwtproject.org/doc/latest/DevGuideI18n.html#DevGuideDynamicStringInternationalization)
+
+
 
 
 
