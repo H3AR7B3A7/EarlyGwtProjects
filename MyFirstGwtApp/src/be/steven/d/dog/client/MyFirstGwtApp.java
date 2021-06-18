@@ -212,9 +212,5 @@ public class MyFirstGwtApp implements EntryPoint {
             }
         });
         stocksFlexTable.setWidget(row, 3, removeStockButton);
-
-        // TODO Get the stock price.
     }
-
-
 }

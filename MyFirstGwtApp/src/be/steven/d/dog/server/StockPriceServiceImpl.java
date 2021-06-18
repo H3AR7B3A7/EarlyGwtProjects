@@ -21,7 +21,6 @@ public class StockPriceServiceImpl extends RemoteServiceServlet implements Stock
 
             prices[i] = new StockPrice(symbols[i], price, change);
         }
-
         return prices;
     }
 }
