@@ -1,4 +1,4 @@
-package be.steven.d.dog.client;
+package be.steven.d.dog.internationalization;
 
 import com.google.gwt.i18n.client.Messages;
 
