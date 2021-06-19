@@ -33,6 +33,7 @@ public class MyFirstGwtApp implements EntryPoint {
     private final TextBox newSymbolTextBox = new TextBox();
     private final Button addStockButton = new Button(constants.add());
     private final Label lastUpdatedLabel = new Label();
+    private final Label errorMsgLabel = new Label();
     private final List<String> stocks = new ArrayList<String>();
 
     public void onModuleLoad() {
@@ -64,6 +65,10 @@ public class MyFirstGwtApp implements EntryPoint {
         addPanel.addStyleName("addPanel");
 
         // Assemble Main panel.
+        errorMsgLabel.setStyleName("errorMessage");
+        errorMsgLabel.setVisible(false);
+
+        mainPanel.add(errorMsgLabel);
         mainPanel.add(stocksFlexTable);
         mainPanel.add(addPanel);
         mainPanel.add(lastUpdatedLabel);
@@ -111,7 +116,14 @@ public class MyFirstGwtApp implements EntryPoint {
         // Set up the callback object.
         AsyncCallback<StockPrice[]> callback = new AsyncCallback<StockPrice[]>() {
             public void onFailure(Throwable e) {
-                e.printStackTrace();
+                // If the stock code is in the list of delisted codes, display an error message.
+                String details = e.getMessage();
+                if (e instanceof DelistedException) {
+                    details = "Company '" + ((DelistedException) e).getSymbol() + "' was delisted";
+                }
+
+                errorMsgLabel.setText("Error: " + details);
+                errorMsgLabel.setVisible(true);
             }
 
             public void onSuccess(StockPrice[] result) {
@@ -137,6 +149,9 @@ public class MyFirstGwtApp implements EntryPoint {
 //        DateTimeFormat dateFormat = DateTimeFormat.getFormat(
 //                DateTimeFormat.PredefinedFormat.DATE_TIME_MEDIUM);
         lastUpdatedLabel.setText(messages.lastUpdate(new Date()));
+
+        // Clear any errors.
+        errorMsgLabel.setVisible(false);
     }
 
     /**

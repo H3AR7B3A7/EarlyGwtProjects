@@ -88,6 +88,9 @@ button.gwt-Button:hover { /* change gwt-button:hover defaults */
     color: red;
 }
 
+.errorMessage {
+    color: red;
+}
 
 img {
     width: 30rem;
