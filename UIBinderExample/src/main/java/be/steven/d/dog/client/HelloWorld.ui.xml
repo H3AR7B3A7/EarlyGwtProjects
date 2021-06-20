@@ -1,6 +1,26 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:my='urn:import:com.my.app.widgets'>
     <g:HTMLPanel>
-        Hello, <g:ListBox ui:field='listBox' visibleItemCount='1'/>.
+        Hello,<g:ListBox ui:field='listBox' visibleItemCount='1'/>.
+
+
+        <g:HorizontalPanel>
+            <g:Label>Keep your ducks</g:Label>
+            <g:Label>in a row</g:Label>
+        </g:HorizontalPanel>
+        <g:VerticalPanel>
+            <g:Label>More</g:Label>
+            <g:Label>ducks</g:Label>
+        </g:VerticalPanel>
+        <g:VerticalPanel>
+            <g:HorizontalPanel>
+                <g:Label>More</g:Label>
+                <g:Label>ducks</g:Label>
+            </g:HorizontalPanel>
+        </g:VerticalPanel>
+
+
     </g:HTMLPanel>
+
 </ui:UiBinder>

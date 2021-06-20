@@ -8,7 +8,9 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
 public class HelloWorld extends Composite {
-    interface MyUiBinder extends UiBinder<Widget, HelloWorld> {}
+    interface MyUiBinder extends UiBinder<Widget, HelloWorld> {
+    }
+
     private static final MyUiBinder uiBinder = GWT.create(MyUiBinder.class);
 
     @UiField
